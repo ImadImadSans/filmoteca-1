@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Films</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Liste des Films</h1>
+    </header>
+    <main>
+        {% if films is not empty %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Année</th>
+                        <th>Type</th>
+                        <th>Synopsis</th>
+                        <th>Réalisateur</th>
+                        <th>Date de création</th>
+                        <th>Dernière mise à jour</th>
+                        <th>Date de suppression</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for film in films %}
+                        <tr>
+                            <td>{{ film.id }}</td>
+                            <td>{{ film.title }}</td>
+                            <td>{{ film.year }}</td>
+                            <td>{{ film.type }}</td>
+                            <td>{{ film.synopsis }}</td>
+                            <td>{{ film.director }}</td>
+                            <td>{{ film.created_at|date('d-m-Y H:i:s') }}</td>
+                            <td>
+                                {% if film.updated_at is not null %}
+                                    {{ film.updated_at|date('d-m-Y H:i:s') }}
+                                {% else %}
+                                    Non modifié
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if film.deleted_at is not null %}
+                                    {{ film.deleted_at|date('d-m-Y H:i:s') }}
+                                {% else %}
+                                    Actif
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun film trouvé.</p>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2023 Filmoteca. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
+    

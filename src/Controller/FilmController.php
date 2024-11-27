@@ -4,35 +4,28 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Entity\Film;
 use App\Repository\FilmRepository;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 class FilmController
 {
+    private Environment $twig;
+
+    public function __construct()
+    {
+        // Initialise le moteur de template Twig avec le bon chemin vers les vues
+        $loader = new FilesystemLoader(__DIR__ . '/../views'); // Chemin vers les vues
+        $this->twig = new Environment($loader);
+    }
+
     public function list(array $queryParams)
     {
         $filmRepository = new FilmRepository();
         $films = $filmRepository->findAll();
 
-        /* $filmEntities = [];
-        foreach ($films as $film) {
-            $filmEntity = new Film();
-            $filmEntity->setId($film['id']);
-            $filmEntity->setTitle($film['title']);
-            $filmEntity->setYear($film['year']);
-            $filmEntity->setType($film['type']);
-            $filmEntity->setSynopsis($film['synopsis']);
-            $filmEntity->setDirector($film['director']);
-            $filmEntity->setCreatedAt(new \DateTime($film['created_at']));
-            $filmEntity->setUpdatedAt(new \DateTime($film['updated_at']));
-
-            $filmEntities[] = $filmEntity;
-        } */
-
-        dd($films);
-
-        // header('Content-Type: application/json');
-        // echo json_encode($films);
+        // Utilise Twig pour rendre le template avec les films
+        echo $this->twig->render('list.html.twig', ['films' => $films]);
     }
 
     public function create()
