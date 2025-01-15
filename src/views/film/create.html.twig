@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un nouveau film{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Formulaire de Création d'un Film</h2>
+    <form action="/films/create" method="POST" class="bg-white p-4 rounded shadow-sm">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="title" class="form-label">Titre du film</label>
+                <input type="text" id="title" name="title" class="form-control" placeholder="Entrez le titre" required>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="year" class="form-label">Année</label>
+                <input type="number" id="year" name="year" class="form-control" placeholder="Année de sortie" min="1900" max="2100" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="type" class="form-label">Genre</label>
+            <input type="text" id="type" name="type" class="form-control" placeholder="Exemple : Action, Drame, Comédie" required>
+        </div>
+        <div class="mb-3">
+            <label for="director" class="form-label">Réalisateur</label>
+            <input type="text" id="director" name="director" class="form-control" placeholder="Nom du réalisateur" required>
+        </div>
+        <div class="mb-3">
+            <label for="synopsis" class="form-label">Synopsis</label>
+            <textarea id="synopsis" name="synopsis" class="form-control" rows="4" placeholder="Brève description du film" required></textarea>
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-check-circle"></i> Ajouter le Film
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

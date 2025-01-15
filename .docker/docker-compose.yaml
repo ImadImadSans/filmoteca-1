@@ -44,6 +44,8 @@ services:
             - ../:/var/www/filmoteca:cached
         networks:
             - filmoteca_network
+        ports:
+            - "9003:9003"
 
     nginx:
         container_name: filmoteca_nginx

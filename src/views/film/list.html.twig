@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des films{% endblock %}
+
+{% block content %}
+    <h2 class="mb-4">
+        <i class="fas fa-list" aria-hidden="true"></i> Liste des films
+    </h2>
+
+    {% if films is empty %}
+        <p class="alert alert-warning">Aucun film disponible pour le moment.</p>
+    {% else %}
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Titre</th>
+                    <th>Année</th>
+                    <th>Type</th>
+                    <th>Réalisateur</th>
+                    <th>Synopsis</th>
+                    <th>Ajouté le</th>
+                    <th>Modifié le</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for film in films %}
+                    <tr>
+                        <td>{{ film.id }}</td>
+                        <td>{{ film.title }}</td>
+                        <td>{{ film.year }}</td>
+                        <td>{{ film.type }}</td>
+                        <td>{{ film.director }}</td>
+                        <td>{{ film.synopsis }}</td>
+                        <td>{{ film.createdAt.format('d/m/Y H:i') }}</td>
+                        <td>{{ film.updatedAt.format('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="/films/read?id={{ film.id }}" class="btn btn-info btn-sm" title="Voir les détails">
+                                <i class="fas fa-eye"></i> Lire
+                            </a>
+                            <a href="/films/update?id={{ film.id }}" class="btn btn-warning btn-sm" title="Modifier">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <form action="/films/delete" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="{{ film.id }}">
+                                <button type="submit" class="btn btn-danger btn-sm" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

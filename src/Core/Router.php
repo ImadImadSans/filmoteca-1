@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+use App\Controller\HomeController;
+
 class Router
 {
     public function route(): void
@@ -25,7 +27,7 @@ class Router
 
         // Définit les routes et leurs contrôleurs associés
         $routes = [
-            'films' => 'FilmController',
+            'film' => 'FilmController',
             'contact' => 'ContactController',
         ];
 
@@ -48,8 +50,9 @@ class Router
                 echo "Action '$action' not found in $controllerName";
             }
         } else {
-            // Page non trouvée
-            echo "404 Not Found";
+            // Si la route n'existe pas, affiche la page d'accueil
+            $controller = new HomeController();
+            $controller->index();
         }
     }
 }

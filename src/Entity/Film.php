@@ -12,8 +12,8 @@ class Film
     private string $type;
     private ?string $synopsis = null;
     private ?string $director = null;
-    private ?\DateTime $deletedAt = null;
     private \DateTime $createdAt;
+    private ?\DateTime $deletedAt = null;
     private ?\DateTime $updatedAt = null;
 
     public function getId(): int
